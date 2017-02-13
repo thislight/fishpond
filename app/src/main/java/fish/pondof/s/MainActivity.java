@@ -1,21 +1,15 @@
 package fish.pondof.s;
 
-import panva.Func;
-import fish.pondof.s.utils.*;
-import fish.pondof.s.StaticValue;
 import android.app.*;
-import android.os.*;
-import android.webkit.*;
-import android.view.View.*;
-import android.view.*;
 import android.content.*;
 import android.net.*;
-import java.net.*;
-import android.util.Log;
+import android.os.*;
+import android.util.*;
+import android.view.*;
+import android.webkit.*;
 import android.widget.*;
-import android.graphics.*;
-import android.graphics.drawable.*;
-import fish.pondof.s.*;
+import fish.pondof.s.utils.*;
+import panva.*;
 
 public class MainActivity extends BaseActivity 
 {
@@ -27,6 +21,7 @@ public class MainActivity extends BaseActivity
 	MenuItem backItem;
 	MenuItem reloadItem;
 	MenuItem openBroItem;
+	MenuItem shareItem;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -49,6 +44,7 @@ public class MainActivity extends BaseActivity
 	{
 		backItem = menu.add(R.string.m_back);
 		reloadItem = menu.add(R.string.m_reload);
+		shareItem = menu.add(R.string.m_share);
 		SubMenu debug = menu.addSubMenu(R.string.m_sub_debug);
 		openBroItem = debug.add(R.string.m_debug_open_bro);
 		return true;
@@ -58,7 +54,7 @@ public class MainActivity extends BaseActivity
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
 		
-		new MenuItemMatcher(item)
+		new Matcher<MenuItem>(item)
 			.match(reloadItem,new Func(){
 				public void call(){
 					webview.reload();
@@ -66,7 +62,7 @@ public class MainActivity extends BaseActivity
 			})
 			.match(openBroItem,new Func(){
 				public void call(){
-					askJumpOut(getString(R.string.main_url));
+					askJumpOut(webview.getUrl());
 				}
 			})
 			.match(backItem,new Func(){
@@ -74,6 +70,11 @@ public class MainActivity extends BaseActivity
 					if(webview.canGoBack()){
 						webview.goBack();
 					}
+				}
+			})
+			.match(shareItem,new Func(){
+				public void call(){
+					shareStory();
 				}
 			})
 			.finish();
@@ -152,11 +153,6 @@ public class MainActivity extends BaseActivity
 			}
 			
 			@Override
-			public void onReceivedIcon(WebView view,Bitmap icon){
-				getActionBar().setIcon(new BitmapDrawable(icon));
-			}
-			
-			@Override
 			public boolean onConsoleMessage(ConsoleMessage m){
 				
 				if(m.messageLevel() == ConsoleMessage.MessageLevel.ERROR){
@@ -180,7 +176,7 @@ public class MainActivity extends BaseActivity
 		
 	}
 	
-	private void askJumpOut(final String url){
+	public void askJumpOut(final String url){
 		Log.i(StaticValue.LOG_TAG,"ask jump out: "+url);
 		AlertDialog dlg = new AlertDialog.Builder(this)
 			.setTitle(R.string.go_to)
@@ -209,6 +205,38 @@ public class MainActivity extends BaseActivity
 
 				
 			})
+			.create();
+			
+			dlg.show();
+	}
+	
+	public void shareStory(){
+		final AlertDialog dlg = new AlertDialog.Builder(this)
+			.setCancelable(true)
+			.setView(R.layout.share_dialog)
+			.setNegativeButton(R.string.b_yes, new DialogInterface.OnClickListener(){
+
+				@Override
+				public void onClick(DialogInterface p1,int p2){
+					AlertDialog dlg = (AlertDialog)p1;
+					EditText t = (EditText)dlg.findViewById(R.id.shareDialogEditText);
+					Intent in = new Intent(Intent.ACTION_SEND);
+					in.setType("text/plain");
+					in.putExtra(Intent.EXTRA_SUBJECT,getString(R.string.share_from));
+					in.putExtra(Intent.EXTRA_TEXT,format(R.string.share_template,webview.getTitle(),webview.getUrl(),t.getText()));
+					startActivity(Intent.createChooser(in,getString(R.string.share_title)));
+				}
+
+			})
+			.setNeutralButton(R.string.b_no, new DialogInterface.OnClickListener(){
+
+				@Override
+				public void onClick(DialogInterface p1,int p2){
+					p1.cancel();
+				}
+
+			})
+			.setTitle(R.string.share_title)
 			.create();
 			
 			dlg.show();

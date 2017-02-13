@@ -4,12 +4,17 @@
     <string name="app_name">Fish Pond</string>
     <string name="main_url">https://pondof.fish</string>
 	<string name="go_to">Go?</string>
-	<string name="b_yes">Yes</string>
-	<string name="b_no">No</string>
+	<string name="b_yes">Ok</string>
+	<string name="b_no">Cancel</string>
 	<string name="jump_out_message">Go to {0}?</string>
 	<string name="m_back">Back</string>
 	<string name="m_reload">Reload</string>
 	<string name="m_sub_debug">Debuff</string>
-	<string name="m_debug_open_bro">Open pondof.fish in Browser</string>
+	<string name="m_debug_open_bro">Open Current Url in Browser</string>
+	<string name="m_share">Share</string>
+	<string name="share_message">Write down your story...</string>
+	<string name="share_title">Share with your firends</string>
+	<string name="share_from">Share something with you</string>
+	<string name="share_template">{0}\n{1}\n{2}\nShare from Fish Pond(https://pondof.fish)</string>
 
 </resources>

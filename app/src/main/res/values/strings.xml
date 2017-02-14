@@ -17,5 +17,6 @@
 	<string name="share_title">Share with your firends</string>
 	<string name="share_from">Share something with you</string>
 	<string name="share_template">{0}\n{1}\n{2}\nShare from Fish Pond(https://pondof.fish)</string>
+	<string name="loading_message">Loading...({0}%)</string>
 
 </resources>

@@ -10,6 +10,8 @@ import android.webkit.*;
 import android.widget.*;
 import fish.pondof.s.utils.*;
 import panva.*;
+import android.support.v4.widget.*;
+import android.graphics.*;
 
 public class MainActivity extends BaseActivity 
 {
@@ -17,9 +19,10 @@ public class MainActivity extends BaseActivity
 	final MainActivity self = this;
 	
 	WebView webview;
-	ProgressBar pb;
 	Toolbar tb;
+	SwipeRefreshLayout swipe;
 	TextView titleView;
+	TextView progressView;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -30,8 +33,6 @@ public class MainActivity extends BaseActivity
 		webview = (WebView)this.findViewById(R.id.mainWebView);
 		this.initWebView(webview);
 		
-		pb = (ProgressBar)this.findViewById(R.id.mainProgressBar);
-		pb.setMax(100);
 		
 		tb = (Toolbar)this.findViewById(R.id.toolbar);
 		setActionBar(tb);
@@ -58,7 +59,21 @@ public class MainActivity extends BaseActivity
 				}
 
 		});
-		titleView = (TextView)tb.findViewById(R.id.title);
+		
+		titleView = (TextView)tb.findViewById(R.id.mainTitle);
+
+		progressView = (TextView)tb.findViewById(R.id.mainProgress);
+		
+		swipe = (SwipeRefreshLayout)findViewById(R.id.swipe_ly);
+		swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener(){
+
+				@Override
+				public void onRefresh(){
+					webview.reload();
+				}
+
+			
+		});
 		
 		this.goFishMain();
     }
@@ -117,7 +132,18 @@ public class MainActivity extends BaseActivity
 			super.onReceivedError(view,errorCode,description,failingUrl);
 		}
 		
+	}
+	
+	private void setTextProgress(int p){
+		if(progressView.getVisibility() != View.VISIBLE){
+			progressView.setVisibility(View.VISIBLE);
+		}
 		
+		progressView.setText(format(R.string.loading_message,p));
+	}
+	
+	private void removeTextProgress(){
+		progressView.setVisibility(View.GONE);
 	}
 	
 	private void initWebView(WebView v){
@@ -127,13 +153,12 @@ public class MainActivity extends BaseActivity
 			@Override
 			public void onProgressChanged(WebView view,int p){
 				if(p < 100){
-					if(pb.getVisibility() == View.GONE){
-						pb.setVisibility(View.VISIBLE);
-					}
-					pb.setProgress(p);
+					setTextProgress(p);
 				}else{
-					pb.setVisibility(View.GONE);
-					pb.setProgress(0);
+					removeTextProgress();
+					if(swipe.isRefreshing()){
+						swipe.setRefreshing(false);
+					}
 				}
 			}
 			
@@ -155,6 +180,7 @@ public class MainActivity extends BaseActivity
 			}
 			
 		});
+		
 		WebSettings s = v.getSettings();
 		s.setJavaScriptEnabled(true);
 		s.setCacheMode(WebSettings.LOAD_NORMAL);

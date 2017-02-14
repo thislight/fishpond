@@ -18,10 +18,8 @@ public class MainActivity extends BaseActivity
 	
 	WebView webview;
 	ProgressBar pb;
-	MenuItem backItem;
-	MenuItem reloadItem;
-	MenuItem openBroItem;
-	MenuItem shareItem;
+	Toolbar tb;
+	TextView titleView;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -35,6 +33,32 @@ public class MainActivity extends BaseActivity
 		pb = (ProgressBar)this.findViewById(R.id.mainProgressBar);
 		pb.setMax(100);
 		
+		tb = (Toolbar)this.findViewById(R.id.toolbar);
+		setActionBar(tb);
+		tb.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener(){
+
+				@Override
+				public boolean onMenuItemClick(MenuItem p1){
+					switch(p1.getItemId()){
+						case R.id.action_back:
+							if(webview.canGoBack()){
+								webview.goBack();
+							}
+							break;
+						case R.id.action_reload:
+							webview.reload();
+							break;
+						case R.id.action_share:
+							shareStory();
+							break;
+						case R.id.action_exit:
+							finishAndRemoveTask();
+					}
+					return true;
+				}
+
+		});
+		titleView = (TextView)tb.findViewById(R.id.title);
 		
 		this.goFishMain();
     }
@@ -42,49 +66,15 @@ public class MainActivity extends BaseActivity
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
-		backItem = menu.add(R.string.m_back);
-		reloadItem = menu.add(R.string.m_reload);
-		shareItem = menu.add(R.string.m_share);
-		SubMenu debug = menu.addSubMenu(R.string.m_sub_debug);
-		openBroItem = debug.add(R.string.m_debug_open_bro);
+		getMenuInflater().inflate(R.menu.main,menu);
 		return true;
 	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item)
-	{
-		
-		new Matcher<MenuItem>(item)
-			.match(reloadItem,new Func(){
-				public void call(){
-					webview.reload();
-				}
-			})
-			.match(openBroItem,new Func(){
-				public void call(){
-					askJumpOut(webview.getUrl());
-				}
-			})
-			.match(backItem,new Func(){
-				public void call(){
-					if(webview.canGoBack()){
-						webview.goBack();
-					}
-				}
-			})
-			.match(shareItem,new Func(){
-				public void call(){
-					shareStory();
-				}
-			})
-			.finish();
-		return super.onOptionsItemSelected(item);
-	}
+	
 
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu)
 	{
-		backItem.setEnabled(webview.canGoBack());
+		menu.findItem(R.id.action_back).setEnabled(webview.canGoBack());
 		
 		return super.onPrepareOptionsMenu(menu);
 	}
@@ -149,7 +139,7 @@ public class MainActivity extends BaseActivity
 			
 			@Override
 			public void onReceivedTitle(WebView view,String title){
-				setTitle(title);
+				titleView.setText(title);
 			}
 			
 			@Override

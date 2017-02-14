@@ -12,6 +12,7 @@
 	<string name="m_sub_debug">Debuff</string>
 	<string name="m_debug_open_bro">Open Current Url in Browser</string>
 	<string name="m_share">Share</string>
+	<string name="m_exit">Exit</string>
 	<string name="share_message">Write down your story...</string>
 	<string name="share_title">Share with your firends</string>
 	<string name="share_from">Share something with you</string>

@@ -189,6 +189,7 @@ public class MainActivity extends BaseActivity
 				{
 					Intent i = new Intent(Intent.ACTION_VIEW);
 					i.setData(Uri.parse(url));
+					i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 					startActivity(i);
 					Log.d(StaticValue.LOG_TAG,"Jump out: "+url);
 				}
@@ -222,6 +223,7 @@ public class MainActivity extends BaseActivity
 					EditText t = (EditText)dlg.findViewById(R.id.shareDialogEditText);
 					Intent in = new Intent(Intent.ACTION_SEND);
 					in.setType("text/plain");
+					in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 					in.putExtra(Intent.EXTRA_SUBJECT,getString(R.string.share_from));
 					in.putExtra(Intent.EXTRA_TEXT,format(R.string.share_template,webview.getTitle(),webview.getUrl(),t.getText()));
 					startActivity(Intent.createChooser(in,getString(R.string.share_title)));

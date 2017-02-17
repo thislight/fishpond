@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">鱼塘</string>
+    <string name="b_no">返回</string>
+    <string name="b_yes">好</string>
+    <string name="bro_chooser_title">选择</string>
+    <string name="go_to">前往？</string>
+    <string name="jump_out_message">前往{0}吗？</string>
+    <string name="loading_message">加载中({0}%)</string>
+    <string name="m_back">返回</string>
+    <string name="m_debug_open_bro">在浏览器中打开当前链接</string>
+    <string name="m_exit">退出</string>
+    <string name="m_reload">重新载入</string>
+    <string name="m_share">分享</string>
+    <string name="m_sub_debug">开发者功能</string>
+    <string name="share_from">分享些东西给你</string>
+    <string name="share_message">说出你的故事……</string>
+    <string name="share_template">{0}\n{1}\n{2}\n分享自鱼塘(https://pondof.fish)</string>
+    <string name="share_title">分享给你的朋友</string>
+</resources>

@@ -113,21 +113,36 @@ public class MainActivity extends BaseActivity
 	{
 		
 		@Override
-		public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest r)
-		{
+		public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest r){
 			Uri uri = r.getUrl();
-			if(uri.getHost() != getString(R.string.main_url)){
-				askJumpOut(format("{0}:{1}",uri.getScheme(),uri.getSchemeSpecificPart()));
+			if(uri.getHost() != Uri.parse(getString(R.string.main_url)).getHost()){
+				askJumpOut(uri.toString());
 				return false;
 			}
 			return true; 
 		}
 
 		@Override
+		public boolean shouldOverrideUrlLoading(WebView view,String url){
+            // Old API
+            if(!url.startsWith(getString(R.string.main_url))){
+                askJumpOut(url);
+                return false;
+            }
+			return true;
+		}
+
+		@Override
 		public void onReceivedError(WebView view, int errorCode, String description, String failingUrl)
 		{
+            // Old API
 			super.onReceivedError(view,errorCode,description,failingUrl);
 		}
+
+        @Override
+        public void onReceivedError(WebView view, WebResourceRequest r, WebResourceError err){
+            super.onReceivedError(view,r,err);
+        }
 		
 	}
 	
@@ -180,9 +195,7 @@ public class MainActivity extends BaseActivity
 		
 		WebSettings s = v.getSettings();
 		s.setJavaScriptEnabled(true);
-		s.setCacheMode(WebSettings.LOAD_NORMAL);
 		s.setAppCacheEnabled(true);
-		s.setEnableSmoothTransition(true);
 		s.setDomStorageEnabled(true);
 		s.setSupportMultipleWindows(true);
 		s.setDatabaseEnabled(true);
@@ -203,7 +216,7 @@ public class MainActivity extends BaseActivity
 					Intent i = new Intent(Intent.ACTION_VIEW);
 					i.setData(Uri.parse(url));
 					i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-					startActivity(i);
+					startActivity(Intent.createChooser(i,getString(R.string.bro_chooser_title)));
 					Log.d(StaticValue.LOG_TAG,"Jump out: "+url);
 				}
 				

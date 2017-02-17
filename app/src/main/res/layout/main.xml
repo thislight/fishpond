@@ -1,65 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_height="match_parent"
-	android:layout_width="match_parent"
-	android:orientation="vertical">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical">
 
-	<Toolbar
-		android:id="@+id/toolbar"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:background="#448AFF">
+    <Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#448AFF">
 
-		<LinearLayout
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-			<TextView
-				android:layout_height="wrap_content"
-				android:layout_width="match_parent"
-				android:text="@string/app_name"
-				android:id="@+id/mainTitle"
-				android:textSize="18sp"
-				android:singleLine="true"
-				android:textColor="#FFFFFF"/>
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text="@string/app_name"
+                android:id="@+id/mainTitle"
+                android:textSize="18sp"
+                android:singleLine="true"
+                android:textColor="#FFFFFF" />
 
-			<TextView
-				android:layout_height="wrap_content"
-				android:layout_width="match_parent"
-				android:id="@+id/mainProgress"
-				android:textSize="12sp"
-				android:singleLine="true"
-				android:textColor="#FFFFFF"
-				android:visibility="gone"/>
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:id="@+id/mainProgress"
+                android:textSize="12sp"
+                android:singleLine="true"
+                android:textColor="#FFFFFF"
+                android:visibility="gone" />
 
-		</LinearLayout>
+        </LinearLayout>
 
-	</Toolbar>
+    </Toolbar>
 
-	<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-		<android.support.v4.widget.SwipeRefreshLayout
-			android:id="@+id/swipe_ly"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent">
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_ly"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-			<WebView
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				android:gravity="center"
-				android:scrollbarStyle="insideOverlay"
-				android:id="@+id/mainWebView">
+            <WebView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:scrollbarStyle="insideOverlay"
+                android:id="@+id/mainWebView">
 
-			</WebView>
+            </WebView>
 
-		</android.support.v4.widget.SwipeRefreshLayout>
+        </android.support.v4.widget.SwipeRefreshLayout>
 
-	</LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>
 

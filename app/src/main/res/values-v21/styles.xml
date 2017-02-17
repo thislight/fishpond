@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="AppTheme" parent="@android:style/Theme.Material.Light.NoActionBar">
-		<item name="android:textColorSecondary">#ffffff</item>
-		<item name="android:colorPrimary">#448AFF</item>
-		<item name="android:colorPrimaryDark">#2D5BAF</item>
-		<item name="android:navigationBarColor">#2D5BAF</item>
-	</style>
+        <item name="android:textColorSecondary">#ffffff</item>
+        <item name="android:colorPrimary">#448AFF</item>
+        <item name="android:colorPrimaryDark">#2D5BAF</item>
+        <item name="android:navigationBarColor">#2D5BAF</item>
+    </style>
 </resources>

@@ -1,20 +1,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    
+
     <item
         android:id="@+id/action_back"
-        android:title="@string/m_back"
-		/>
-	<item
-		android:id="@+id/action_reload"
-		android:title="@string/m_reload"
-		/>
-	<item
-		android:id="@+id/action_share"
-		android:title="@string/m_share"
-		/>
-	<item
-		android:id="@+id/action_exit"
-		android:title="@string/m_exit"
-		/>
-		
+        android:title="@string/m_back" />
+    <item
+        android:id="@+id/action_reload"
+        android:title="@string/m_reload" />
+    <item
+        android:id="@+id/action_share"
+        android:title="@string/m_share" />
+    <item
+        android:id="@+id/action_exit"
+        android:title="@string/m_exit" />
+
 </menu>

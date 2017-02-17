@@ -12,6 +12,7 @@ import fish.pondof.s.utils.*;
 import panva.*;
 import android.support.v4.widget.*;
 import android.graphics.*;
+import java.io.*;
 
 public class MainActivity extends BaseActivity 
 {
@@ -112,23 +113,19 @@ public class MainActivity extends BaseActivity
 	{
 		
 		@Override
-		public boolean shouldOverrideUrlLoading(WebView view, String url)
+		public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest r)
 		{
-			if(!url.startsWith(getString(R.string.main_url))){
-				askJumpOut(url);
-				Log.i(StaticValue.LOG_TAG,"Jump out ask: "+url);
-			}else{
-				view.loadUrl(url);
-				Log.i(StaticValue.LOG_TAG,"Go "+url);
+			Uri uri = r.getUrl();
+			if(uri.getHost() != getString(R.string.main_url)){
+				askJumpOut(format("{0}:{1}",uri.getScheme(),uri.getSchemeSpecificPart()));
+				return false;
 			}
-			
-			return false; // Why? Remove webview-self action
+			return true; 
 		}
 
 		@Override
 		public void onReceivedError(WebView view, int errorCode, String description, String failingUrl)
 		{
-			// TODO: ADD custom error page
 			super.onReceivedError(view,errorCode,description,failingUrl);
 		}
 		
@@ -266,5 +263,6 @@ public class MainActivity extends BaseActivity
 		//webview.destroy();
 		super.onDestroy();
 	}
+	
 	
 }

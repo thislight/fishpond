@@ -4,15 +4,12 @@ import android.app.*;
 import android.content.*;
 import android.net.*;
 import android.os.*;
+import android.support.v4.widget.*;
 import android.util.*;
 import android.view.*;
 import android.webkit.*;
 import android.widget.*;
 import fish.pondof.s.utils.*;
-import panva.*;
-import android.support.v4.widget.*;
-import android.graphics.*;
-import java.io.*;
 
 public class MainActivity extends BaseActivity 
 {
@@ -116,7 +113,7 @@ public class MainActivity extends BaseActivity
 		public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest r){
 			Uri uri = r.getUrl();
 			if(uri.getHost() != Uri.parse(getString(R.string.main_url)).getHost()){
-				askJumpOut(uri.toString());
+				askJumpOut(uri);
 				return false;
 			}
 			return true; 
@@ -126,7 +123,7 @@ public class MainActivity extends BaseActivity
 		public boolean shouldOverrideUrlLoading(WebView view,String url){
             // Old API
             if(!url.startsWith(getString(R.string.main_url))){
-                askJumpOut(url);
+                askJumpOut(Uri.parse(url));
                 return false;
             }
 			return true;
@@ -197,27 +194,27 @@ public class MainActivity extends BaseActivity
 		s.setJavaScriptEnabled(true);
 		s.setAppCacheEnabled(true);
 		s.setDomStorageEnabled(true);
-		s.setSupportMultipleWindows(true);
+		s.setSupportMultipleWindows(false);
 		s.setDatabaseEnabled(true);
 		
 	}
 	
-	public void askJumpOut(final String url){
-		Log.i(StaticValue.LOG_TAG,"ask jump out: "+url);
+	public void askJumpOut(Uri uri2){
+		final Uri uri = Uri.parse(uri2.toString());
+		Log.i(StaticValue.LOG_TAG,"ask jump out: "+uri.toString());
 		AlertDialog dlg = new AlertDialog.Builder(this)
 			.setTitle(R.string.go_to)
 			.setCancelable(false)
-			.setMessage(format(R.string.jump_out_message,url))
+			.setMessage(format(R.string.jump_out_message,uri.toString()))
 			.setNegativeButton(R.string.b_yes, new android.content.DialogInterface.OnClickListener(){
 
 				@Override
 				public void onClick(DialogInterface p1, int p2)
 				{
 					Intent i = new Intent(Intent.ACTION_VIEW);
-					i.setData(Uri.parse(url));
-					i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+					i.setData(uri);
 					startActivity(Intent.createChooser(i,getString(R.string.bro_chooser_title)));
-					Log.d(StaticValue.LOG_TAG,"Jump out: "+url);
+					Log.d(StaticValue.LOG_TAG,"Jump out: "+uri.toString());
 				}
 				
 			})
@@ -227,7 +224,7 @@ public class MainActivity extends BaseActivity
 				public void onClick(DialogInterface p1, int p2)
 				{
 					p1.cancel();
-					Log.d(StaticValue.LOG_TAG,"Jump out cancel: "+url);
+					Log.d(StaticValue.LOG_TAG,"Jump out cancel: "+uri.toString());
 				}
 
 				

@@ -47,15 +47,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <WebView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:scrollbarStyle="insideOverlay"
-                android:id="@+id/mainWebView">
-
-            </WebView>
-
         </android.support.v4.widget.SwipeRefreshLayout>
 
     </LinearLayout>

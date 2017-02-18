@@ -28,10 +28,6 @@ public class MainActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 		
-		webview = (WebView)this.findViewById(R.id.mainWebView);
-		this.initWebView(webview);
-		
-		
 		tb = (Toolbar)this.findViewById(R.id.toolbar);
 		setActionBar(tb);
 		tb.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener(){
@@ -72,6 +68,12 @@ public class MainActivity extends BaseActivity
 
 			
 		});
+
+		webview = new WebView(getApplicationContext());
+        webview.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT));
+        swipe.addView(webview);
+        this.initWebView(webview);
 		
 		this.goFishMain();
     }
@@ -200,6 +202,7 @@ public class MainActivity extends BaseActivity
 	}
 	
 	public void askJumpOut(Uri uri2){
+        // value used in local class must be final
 		final Uri uri = Uri.parse(uri2.toString());
 		Log.i(StaticValue.LOG_TAG,"ask jump out: "+uri.toString());
 		AlertDialog dlg = new AlertDialog.Builder(this)
@@ -267,10 +270,29 @@ public class MainActivity extends BaseActivity
 			dlg.show();
 	}
 
+    /**
+     * Description: release the memory of web view, otherwise it's resource will not be recycle.
+     * Created by Michael Lee on 7/18/16 20:38
+     */
+    public void clearWebViewResource() {
+        if (webview!= null) {
+            Log.d(StaticValue.LOG_TAG,"Clear webview's resources");
+            webview.removeAllViews();
+            // in android 5.1(sdk:21) we should invoke this to avoid memory leak
+            // see (https://coolpers.github.io/webview/memory/leak/2015/07/16/
+            // android-5.1-webview-memory-leak.html)
+            ((ViewGroup) webview.getParent()).removeView(webview);
+            webview.setTag(null);
+            webview.clearHistory();
+            webview.destroy();
+            webview = null;
+        }
+    }
+
 	@Override
 	protected void onDestroy()
 	{
-		//webview.destroy();
+		clearWebViewResource();
 		super.onDestroy();
 	}
 	

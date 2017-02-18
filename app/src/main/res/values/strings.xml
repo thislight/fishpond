@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">Fish Pond</string>
-    <string name="main_url">https://pondof.fish</string>
+    <string name="main_url" translatable="false">https://pondof.fish</string>
     <string name="go_to">Go?</string>
     <string name="b_yes">Ok</string>
     <string name="b_no">Cancel</string>

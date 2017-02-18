@@ -114,9 +114,9 @@ public class MainActivity extends BaseActivity
 			Uri uri = r.getUrl();
 			if(uri.getHost() != Uri.parse(getString(R.string.main_url)).getHost()){
 				askJumpOut(uri);
-				return false;
+				return true;
 			}
-			return true; 
+			return false; 
 		}
 
 		@Override
@@ -124,9 +124,9 @@ public class MainActivity extends BaseActivity
             // Old API
             if(!url.startsWith(getString(R.string.main_url))){
                 askJumpOut(Uri.parse(url));
-                return false;
+                return true;
             }
-			return true;
+			return false;
 		}
 
 		@Override

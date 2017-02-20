@@ -48,6 +48,9 @@ public class MainActivity extends BaseActivity
 							break;
 						case R.id.action_exit:
 							finishAndRemoveTask();
+							break;
+						case R.id.action_open:
+							askJumpOut(Uri.parse(webview.getUrl()));
 					}
 					return true;
 				}

@@ -17,4 +17,5 @@
     <string name="share_message">说出你的故事……</string>
     <string name="share_template">{0}\n{1}\n{2}\n分享自鱼塘(https://pondof.fish)</string>
     <string name="share_title">分享给你的朋友</string>
+	<string name="m_open_in_bro">在浏览器中打开…</string>
 </resources>

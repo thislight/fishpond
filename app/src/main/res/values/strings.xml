@@ -19,5 +19,6 @@
     <string name="share_template">{0}\n{1}\n{2}\nShare from Fish Pond(https://pondof.fish)</string>
     <string name="loading_message">Loading...({0}%)</string>
     <string name="bro_chooser_title">Choose</string>
+	<string name="m_open_in_bro">Open in browser...</string>
 
 </resources>

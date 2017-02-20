@@ -69,7 +69,7 @@ public class MainActivity extends BaseActivity
 			
 		});
 
-		webview = new WebView(getApplicationContext());
+		webview = new WebView(this);
         webview.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT));
         swipe.addView(webview);

@@ -8,8 +8,8 @@ android {
         applicationId "fish.pondof.s"
         minSdkVersion 21
         targetSdkVersion 25
-        versionCode 8
-        versionName "1.1-beta.4"
+        versionCode 9
+        versionName "1.1"
     }
     buildTypes {
         release {

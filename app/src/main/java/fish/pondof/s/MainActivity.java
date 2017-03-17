@@ -117,29 +117,15 @@ public class MainActivity extends BaseActivity
 		@Override
 		public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest r){
 			Uri uri = r.getUrl();
-			if(uri.getHost() != Uri.parse(getString(R.string.main_url)).getHost()){
+			Uri homeUri = Uri.parse(getString(R.string.main_url));
+			Log.d(StaticValue.LOG_TAG,format("Got uri host: {0}, compare with {1}",uri.getHost(),homeUri.getHost()));
+			if(homeUri.getHost().intern() != uri.getHost().intern()){
 				askJumpOut(uri);
 				return true;
 			}
 			return false; 
 		}
 
-		@Override
-		public boolean shouldOverrideUrlLoading(WebView view,String url){
-            // Old API
-            if(!url.startsWith(getString(R.string.main_url))){
-                askJumpOut(Uri.parse(url));
-                return true;
-            }
-			return false;
-		}
-
-		@Override
-		public void onReceivedError(WebView view, int errorCode, String description, String failingUrl)
-		{
-            // Old API
-			super.onReceivedError(view,errorCode,description,failingUrl);
-		}
 
         @Override
         public void onReceivedError(WebView view, WebResourceRequest r, WebResourceError err){

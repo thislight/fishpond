@@ -14,8 +14,6 @@ import fish.pondof.s.utils.*;
 public class MainActivity extends BaseActivity 
 {
 	
-	final MainActivity self = this;
-	
 	WebView webview;
 	Toolbar tb;
 	SwipeRefreshLayout swipe;
@@ -169,11 +167,11 @@ public class MainActivity extends BaseActivity
 			
 			@Override
 			public boolean onConsoleMessage(ConsoleMessage m){
-				
+				final String TEMPLATE = "[JavaScript Console]:{0}:{1}";
 				if(m.messageLevel() == ConsoleMessage.MessageLevel.ERROR){
-					Log.e(StaticValue.LOG_TAG,"[JavaScript Console] "+m.lineNumber()+" : "+m.message());
+					Log.e(StaticValue.LOG_TAG,format(TEMPLATE,m.lineNumber(),m.message()));
 				}else{
-					Log.d(StaticValue.LOG_TAG,"[JavaScript Console] "+m.lineNumber()+" : "+m.message());
+					Log.d(StaticValue.LOG_TAG,format(TEMPLATE,m.lineNumber(),m.message()));
 				}
 				
 				return true;
@@ -192,7 +190,7 @@ public class MainActivity extends BaseActivity
 	
 	public void askJumpOut(Uri uri2){
         // value used in local class must be final
-		final Uri uri = Uri.parse(uri2.toString());
+		final Uri uri = uri2;
 		Log.i(StaticValue.LOG_TAG,"ask jump out: "+uri.toString());
 		AlertDialog dlg = new AlertDialog.Builder(this)
 			.setTitle(R.string.go_to)
